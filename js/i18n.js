@@ -308,6 +308,9 @@ function setLanguage(lang) {
     });
 
     try { localStorage.setItem('lang', lang); } catch (e) { /* ignore */ }
+
+    // Tell script.js the text changed (it rebuilds the skill previews)
+    document.dispatchEvent(new Event('i18n:change'));
 }
 
 /* Which language to start with: ?lang= in the link, then the saved

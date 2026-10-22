@@ -650,3 +650,33 @@ aboutPhoto.addEventListener('click', () => {
         setPillOpen(!aboutPhoto.classList.contains('open'));
     }
 });
+
+
+/* ============================================================
+   12. FOLDABLE SKILL CARDS
+   Each card starts closed with a short preview of its skills.
+   Clicking the title opens or closes the full list.
+   ============================================================ */
+const skillCards = document.querySelectorAll('.skill-card');
+
+// "Windows, Linux, Windows Server +4" from the card's own tags
+function buildSkillPreviews() {
+    skillCards.forEach(card => {
+        const tags = [...card.querySelectorAll('.tag')].map(tag => tag.textContent.trim());
+        const shown = tags.slice(0, 3).join(', ');
+        const rest = tags.length - 3;
+        card.querySelector('.skill-preview').textContent = rest > 0 ? `${shown}  +${rest}` : shown;
+    });
+}
+
+skillCards.forEach(card => {
+    const toggle = card.querySelector('.skill-toggle');
+    toggle.addEventListener('click', () => {
+        const open = card.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+    });
+});
+
+buildSkillPreviews();
+// The tags are translated too, so rebuild the previews when the language changes
+document.addEventListener('i18n:change', buildSkillPreviews);

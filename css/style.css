@@ -497,7 +497,33 @@ strong { color: var(--text); font-weight: 600; }
 .ph-remote { color: var(--text-2); font-size: 15px; }
 .ph-cta-buttons { display: flex; gap: 12px; flex-shrink: 0; }
 
-.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; align-items: start; }
+
+/* ---------- Foldable skill cards ----------
+   Closed: title + a one-line preview ("Windows, Linux, … +4").
+   Open: the full list slides down. The slide uses the grid trick:
+   grid-template-rows goes from 0fr (no height) to 1fr (full height),
+   which CSS can animate, unlike height: auto. */
+.skill-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    text-align: left; font: inherit; color: inherit;
+}
+.skill-name { display: flex; gap: 10px; align-items: baseline; }
+.skill-chevron { color: var(--text-3); flex-shrink: 0; transition: transform .35s var(--ease), color .2s; }
+.skill-toggle:hover .skill-chevron { color: var(--accent); }
+.skill-card.open .skill-chevron { transform: rotate(180deg); color: var(--accent); }
+
+.skill-preview {
+    font-size: 14px; color: var(--text-3);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: opacity .25s;
+}
+.skill-card.open .skill-preview { display: none; }
+
+.skill-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease); }
+.skill-body > .skill-tags { overflow: hidden; min-height: 0; }
+.skill-card.open .skill-body { grid-template-rows: 1fr; }
+.skill-card.open .skill-body > .skill-tags { padding-top: 4px; }
 
 .skill-card {
     background: var(--surface);
@@ -507,7 +533,7 @@ strong { color: var(--text); font-weight: 600; }
     transition: transform .3s var(--ease), border-color .3s;
 }
 .skill-card:hover { transform: translateY(-4px); border-color: rgba(var(--accent-rgb), .4); }
-.skill-card-title { font-size: 19px; margin-bottom: 16px; display: flex; gap: 10px; align-items: baseline; }
+.skill-card-title { font-size: 19px; margin-bottom: 8px; display: flex; gap: 10px; align-items: baseline; }
 
 /* Skills inside a card: a neat two-column list (every row lines up),
    with the same ▹ bullet as the About facts and Journey lists */

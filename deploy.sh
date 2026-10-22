@@ -12,6 +12,7 @@ rsync -avz --delete \
   --exclude 'README.md' \
   --exclude '.gitignore' \
   --exclude 'styleguide.html' \
+  --exclude 'logo-sketches' \
   --exclude '.DS_Store' \
   --exclude '.git' \
   ./ vps:/var/www/violasanyan.com/

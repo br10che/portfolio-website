@@ -148,6 +148,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 22px; }
+/* The small capsule after "sanyan" (same height as the letters, sits like a full stop) */
+.nav-logo { display: inline-flex; align-items: center; }
+.logo-capsule { height: 1em; width: auto; margin-left: .05em; }
+.logo-capsule .cap-a { fill: var(--accent); }
+.logo-capsule .cap-b { fill: var(--accent-2); }
 
 .nav-links { display: flex; gap: 28px; }
 .nav-link { font-size: 15px; color: var(--text-2); transition: color .2s; }

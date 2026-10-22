@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The capsule from the logo. Darker colours on light browser tabs, the site's dark-theme colours on dark tabs -->
+  <style>
+    .a { fill: #d9643f; } .b { fill: #2f8f7c; }
+    @media (prefers-color-scheme: dark) { .a { fill: #ffab8a; } .b { fill: #9fd8cb; } }
+  </style>
+  <g transform="translate(32 32) rotate(-40)">
+    <rect class="a" x="-31" y="-14" width="62" height="28" rx="14"/>
+    <path class="b" d="M0 -14 H17 A14 14 0 0 1 17 14 H0 Z"/>
+  </g>
+</svg>

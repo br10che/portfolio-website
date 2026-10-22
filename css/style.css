@@ -562,7 +562,9 @@ strong { color: var(--text); font-weight: 600; }
 .copy-hint { font-size: 12px; color: var(--text-3); text-transform: lowercase; }
 .copy-email.copied .copy-hint { color: var(--accent-2); }
 
-.contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+/* Two even rows of three: email · whatsapp · call / github · linkedin · cv */
+.contact-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 720px; }
+.contact-links .btn { justify-content: center; white-space: nowrap; }
 
 /* ============================================================
    FOOTER
@@ -625,6 +627,7 @@ strong { color: var(--text); font-weight: 600; }
     .projects-grid, .skills-grid { grid-template-columns: 1fr; }
     .project-featured { padding: 28px; }
     .copy-email { font-size: 15px; }
+    .contact-links { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; }
 }
 

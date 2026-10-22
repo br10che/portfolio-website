@@ -92,6 +92,11 @@ const ctx     = canvas.getContext('2d');
 const heroArt = document.getElementById('heroArt');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Phones and tablets have no mouse, so give them a hint that fits a finger
+if (window.matchMedia('(hover: none)').matches) {
+    heroArt.querySelector('.hero-art-hint').textContent = 'tap to scatter';
+}
+
 let size      = 0;          // canvas width/height in CSS pixels (it's square)
 let particles = [];         // { x, y, vx, vy, tx, ty, group, r, bit }
 let colors    = ['#fff', '#fff'];
@@ -108,8 +113,7 @@ const portrait = new Image();
 portrait.src = PORTRAIT_SRC;
 
 // Draw the sketch onto a hidden square canvas and return its pixels.
-// `blur` softens it first (used to measure the "surroundings" of a pixel).
-function portraitPixels(blur) {
+function portraitPixels() {
     const off = document.createElement('canvas');
     off.width = off.height = size;
     const offCtx = off.getContext('2d');
@@ -120,7 +124,6 @@ function portraitPixels(blur) {
     const w = h * (portrait.width / portrait.height);
     offCtx.fillStyle = '#fff';
     offCtx.fillRect(0, 0, size, size);
-    offCtx.filter = blur ? `blur(${blur}px)` : 'none';
     offCtx.drawImage(portrait, (size - w) / 2, 0, w, h);
 
     const data = offCtx.getImageData(0, 0, size, size).data;
@@ -130,6 +133,36 @@ function portraitPixels(blur) {
         light[i] = (data[i * 4] * 0.3 + data[i * 4 + 1] * 0.59 + data[i * 4 + 2] * 0.11) / 255;
     }
     return { light, height: h, left: (size - w) / 2, scale: h / portrait.height };
+}
+
+// Blur the brightness values ourselves (a box blur run twice ≈ a soft blur).
+// We don't use the canvas `filter = 'blur()'` setting because iPhone Safari
+// ignores it, and then the portrait came out empty on iPhones.
+function blurLight(light, radius) {
+    let src = light;
+    for (let pass = 0; pass < 2; pass++) {
+        src = boxBlur(src, radius, true);    // left ↔ right
+        src = boxBlur(src, radius, false);   // up ↕ down
+    }
+    return src;
+}
+
+// Average every value with its neighbours within `radius`, along one direction.
+// A running sum keeps it fast: add the value entering the window, drop the one leaving it.
+function boxBlur(src, radius, horizontal) {
+    const out = new Float32Array(src.length);
+    const width = radius * 2 + 1;
+    for (let line = 0; line < size; line++) {
+        const at = i => horizontal ? line * size + i : i * size + line;
+        let sum = 0;
+        // Start with the window around position 0 (edges repeat the border value)
+        for (let i = -radius; i <= radius; i++) sum += src[at(Math.min(size - 1, Math.max(0, i)))];
+        for (let i = 0; i < size; i++) {
+            out[at(i)] = sum / width;
+            sum += src[at(Math.min(size - 1, i + radius + 1))] - src[at(Math.max(0, i - radius))];
+        }
+    }
+    return out;
 }
 
 // Two areas of the sketch get special treatment, measured in pixels
@@ -150,8 +183,8 @@ function inArea(area, sx, sy) {
 // (sharp pixel vs. blurred copy). That picks up the glasses, eyes,
 // smile and the curls, without filling the dark hair with a solid block.
 function samplePortrait() {
-    const sharp   = portraitPixels(0);
-    const blurred = portraitPixels(3);
+    const sharp   = portraitPixels();
+    const blurred = { light: blurLight(sharp.light, 3) };
     const gap     = Math.max(4, Math.round(size / 125));  // distance between digits
     const points  = [];
 

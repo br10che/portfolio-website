@@ -105,6 +105,7 @@ const translations = {
         'contact.copyHint': 'κλικ για αντιγραφή',
         'contact.copied': 'αντιγράφηκε ✓',
         'contact.send': 'στείλε email',
+        'contact.call': 'τηλέφωνο',
         'contact.cv': 'βιογραφικό (cv)',
 
         'footer.built': 'σχεδιασμένο &amp; φτιαγμένο από το μηδέν από τη viola',
@@ -198,6 +199,7 @@ const translations = {
         'contact.copyHint': 'нажмите, чтобы скопировать',
         'contact.copied': 'скопировано ✓',
         'contact.send': 'написать письмо',
+        'contact.call': 'позвонить',
         'contact.cv': 'скачать резюме',
 
         'footer.built': 'дизайн и код с нуля — viola',

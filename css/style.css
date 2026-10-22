@@ -568,7 +568,8 @@ strong { color: var(--text); font-weight: 600; }
    A soft light follows the mouse inside each card: script.js
    sets --mx / --my to the mouse position.
    ============================================================ */
-.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+/* Three compact cards side by side (two on tablets, one on phones) */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
 .project-card {
     --mx: 50%;
@@ -578,7 +579,7 @@ strong { color: var(--text); font-weight: 600; }
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 28px;
+    padding: 22px;
     overflow: hidden;
     transition: transform .3s var(--ease), border-color .3s;
 }
@@ -593,11 +594,11 @@ strong { color: var(--text); font-weight: 600; }
 .project-card:hover { transform: translateY(-6px); border-color: rgba(var(--accent-rgb), .35); }
 .project-card:hover::before { opacity: 1; }
 
-.project-featured { grid-column: 1 / -1; padding: 36px; }
-.project-featured .project-title { font-size: 28px; }
-.project-featured .project-desc { max-width: 720px; }
+/* The featured card stands out with a peach border instead of being bigger */
+.project-featured { border-color: rgba(var(--accent-rgb), .35); }
 
-.project-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.project-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.project-top .folder { width: 26px; height: 26px; }
 .folder { color: var(--accent); }
 .project-links a { color: var(--text-2); transition: color .2s; }
 .project-links a:hover { color: var(--accent); }
@@ -605,11 +606,11 @@ strong { color: var(--text); font-weight: 600; }
 .project-label { color: var(--accent); font-size: 12px; margin-bottom: 8px; }
 .project-top .project-label { margin-bottom: 0; color: var(--text-3); }
 
-.project-title { font-size: 22px; margin-bottom: 12px; transition: color .2s; }
+.project-title { font-size: 18px; margin-bottom: 8px; transition: color .2s; }
 .project-card:hover .project-title { color: var(--accent); }
-.project-desc { color: var(--text-2); font-size: 16px; margin-bottom: 22px; flex-grow: 1; }
+.project-desc { color: var(--text-2); font-size: 14.5px; line-height: 1.6; margin-bottom: 16px; flex-grow: 1; }
 
-.project-tags { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--text-3); font-size: 12.5px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--text-3); font-size: 12px; }
 
 /* ============================================================
    CONTACT
@@ -662,6 +663,7 @@ strong { color: var(--text); font-weight: 600; }
 /* Tablet: stack the hero and about columns */
 @media (max-width: 900px) {
     .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
     .ph-columns { grid-template-columns: 1fr; }
     .ph-cta { flex-direction: column; align-items: flex-start; }
     .hero-grid { grid-template-columns: 1fr; }
@@ -702,7 +704,6 @@ strong { color: var(--text); font-weight: 600; }
     .journey-tab { white-space: nowrap; font-size: 16px; gap: 8px; }
 
     .projects-grid, .skills-grid { grid-template-columns: 1fr; }
-    .project-featured { padding: 28px; }
     .copy-email { font-size: 15px; }
     .contact-links { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }

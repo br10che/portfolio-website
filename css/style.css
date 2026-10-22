@@ -314,7 +314,7 @@ strong { color: var(--text); font-weight: 600; }
     inset: 0;
     overflow: hidden;
     border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    background: var(--surface-2);
     animation: morph 12s ease-in-out infinite;
     transition: transform .6s var(--ease);
     z-index: 1;
@@ -330,22 +330,51 @@ strong { color: var(--text); font-weight: 600; }
     66%      { border-radius: 36% 64% 52% 48% / 62% 36% 64% 38%; }
 }
 
-.blob-placeholder {
-    position: absolute; inset: 0;
-    display: grid; place-items: center;
-    font-family: var(--font-head); font-weight: 800; font-size: 96px;
-    color: var(--bg);
+/* ---------- The capsule inside the blob ----------
+   .pill is the capsule, tilted like the one in the logo. Its two
+   halves slide apart along the capsule when it opens. The 0s and 1s
+   (made in script.js) wait hidden in the middle, then fly out to
+   their own spot, each a little later than the one before. */
+.pill {
+    position: absolute; top: 50%; left: 50%;
+    width: 58%; height: 25%;
+    transform: translate(-50%, -50%) rotate(-40deg);
+    animation: pill-float 5s ease-in-out infinite;
 }
-.blob-img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: opacity .5s ease, filter .5s ease, transform .6s var(--ease);
+.pill-half {
+    position: absolute; top: 0; width: 50%; height: 100%;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+    transition: transform .7s var(--ease);
 }
-.blob-img-main { filter: grayscale(.35) contrast(1.05); }
-.blob-img-hover { opacity: 0; }
-.about-photo:hover .blob-img-main  { filter: none; transform: scale(1.06); }
-.about-photo:hover .blob-img-hover { opacity: 1; }
+.pill-left  { left: 0;  background: var(--accent);   border-radius: 999px 0 0 999px; }
+.pill-right { right: 0; background: var(--accent-2); border-radius: 0 999px 999px 0; }
+/* a soft shine along the top, so it looks round */
+.pill-half::after {
+    content: ""; position: absolute; top: 16%; left: 18%; right: 18%; height: 18%;
+    border-radius: 999px; background: rgba(255, 255, 255, .35);
+}
+
+.about-photo.open .pill-left  { transform: translateX(-34%) rotate(-5deg); }
+.about-photo.open .pill-right { transform: translateX(34%)  rotate(5deg); }
+
+@keyframes pill-float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(-40deg); }
+    50%      { transform: translate(-50%, -56%) rotate(-36deg); }
+}
+
+.pill-bits { position: absolute; inset: 0; }
+.pill-bit {
+    position: absolute; top: 50%; left: 50%;
+    font-family: var(--font-mono); font-weight: 500;
+    line-height: 1;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+    transition: transform .8s var(--ease), opacity .4s ease;
+}
+.about-photo.open .pill-bit {
+    opacity: var(--o);
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1);
+}
 
 /* Outline ring behind the blob that moves the other way on hover */
 .blob-ring {
@@ -605,3 +634,18 @@ strong { color: var(--text); font-weight: 600; }
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; }
 }
+
+/* ============================================================
+   404 PAGE (404.html)
+   One centred column: logo, the open capsule, the message.
+   ============================================================ */
+.notfound {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 18px; text-align: center; padding-top: 40px; padding-bottom: 40px;
+}
+.notfound .nav-logo { margin-bottom: 18px; }
+.notfound-art { width: min(240px, 70vw); margin-bottom: 18px; }
+.notfound-code { color: var(--accent); font-size: 15px; letter-spacing: .2em; }
+.notfound-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(30px, 6vw, 48px); line-height: 1.1; }
+.notfound-text { color: var(--text-2); max-width: 440px; margin-bottom: 10px; }

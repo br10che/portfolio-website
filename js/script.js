@@ -596,17 +596,57 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
 /* ============================================================
-   11. MISSING PHOTOS
-   The About photos are optional. If a photo file doesn't exist,
-   remove its <img> so the "VS" badge shows instead of a broken
-   image. (Done here instead of onerror="" in the HTML, because
-   the site's security policy blocks inline JavaScript.)
+   11. CAPSULE IN THE ABOUT SECTION
+   Hover (or tap on phones) opens the capsule and 0s and 1s
+   spill out. While it's open, a few digits flip every moment,
+   like in the portrait at the top.
    ============================================================ */
-document.querySelectorAll('.blob-img').forEach(img => {
-    // The image may have already failed before this script ran
-    if (img.complete && img.naturalWidth === 0) {
-        img.remove();
-    } else {
-        img.addEventListener('error', () => img.remove());
+const aboutPhoto = document.getElementById('aboutPhoto');
+const pillBits   = document.getElementById('pillBits');
+const bitColors  = ['var(--accent)', 'var(--accent-2)', 'var(--text)'];
+const bits = [];
+
+for (let i = 0; i < 22; i++) {
+    const bit = document.createElement('span');
+    bit.className = 'pill-bit';
+    bit.textContent = Math.random() < 0.5 ? '0' : '1';
+
+    // A random spot in the gap between the two halves (in px, from the
+    // centre of the blob). The capsule is tilted 40°, so the gap runs
+    // from top-left to bottom-right: "across" follows the gap, "along"
+    // spreads the digits a little towards the halves.
+    const across = (i / 21 - 0.5) * 250 + (Math.random() - 0.5) * 14; // evenly spaced
+    const along  = (Math.random() - 0.5) * 70;
+    const tilt   = 40 * Math.PI / 180;
+    bit.style.setProperty('--x', `${across * Math.sin(tilt) + along * Math.cos(tilt)}px`);
+    bit.style.setProperty('--y', `${across * Math.cos(tilt) - along * Math.sin(tilt)}px`);
+    bit.style.setProperty('--o', (0.55 + Math.random() * 0.45).toFixed(2));
+    bit.style.fontSize = `${12 + Math.random() * 14}px`;
+    bit.style.color = bitColors[i % bitColors.length];
+    bit.style.transitionDelay = `${i * 18}ms`; // one after another
+
+    pillBits.append(bit);
+    bits.push(bit);
+}
+
+let flipTimer = null;
+
+function setPillOpen(open) {
+    aboutPhoto.classList.toggle('open', open);
+    clearInterval(flipTimer);
+    if (open) {
+        flipTimer = setInterval(() => {
+            const bit = bits[Math.floor(Math.random() * bits.length)];
+            bit.textContent = bit.textContent === '0' ? '1' : '0';
+        }, 120);
+    }
+}
+
+// Mouse: open while hovering. Touch: each tap opens / closes it.
+aboutPhoto.addEventListener('mouseenter', () => setPillOpen(true));
+aboutPhoto.addEventListener('mouseleave', () => setPillOpen(false));
+aboutPhoto.addEventListener('click', () => {
+    if (window.matchMedia('(hover: none)').matches) {
+        setPillOpen(!aboutPhoto.classList.contains('open'));
     }
 });

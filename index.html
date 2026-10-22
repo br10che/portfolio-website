@@ -8,10 +8,21 @@
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <!-- Link preview when the site is shared (LinkedIn, WhatsApp, email...) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://violasanyan.com/">
+    <meta property="og:title" content="Viola Sanyan · better product data for pharmacy e-shops">
+    <meta property="og:description" content="CS student and Computer &amp; Network Technician in Limassol, Cyprus. Product data, IT support and Linux, with hands-on work in pharmacy and e-commerce.">
+    <meta property="og:image" content="https://violasanyan.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="sanyan logo with an open capsule spilling 0s and 1s">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -125,13 +136,15 @@
                     </ul>
                 </div>
 
-                <!-- Photo blob: morphs slowly, and changes on hover.
-                     Add assets/images/viola.jpg (and optionally viola-2.jpg for the hover photo). -->
-                <div class="about-photo reveal">
-                    <div class="blob" id="blob">
-                        <div class="blob-placeholder">vs</div>
-                        <img class="blob-img blob-img-main"  src="assets/images/viola.jpg"   alt="Viola Sanyan">
-                        <img class="blob-img blob-img-hover" src="assets/images/viola-2.jpg" alt="">
+                <!-- Capsule in a morphing blob (stands in until there is a photo).
+                     Hover or tap: the capsule opens and 0s and 1s spill out. -->
+                <div class="about-photo reveal" id="aboutPhoto">
+                    <div class="blob" aria-hidden="true">
+                        <div class="pill">
+                            <span class="pill-half pill-left"></span>
+                            <span class="pill-half pill-right"></span>
+                        </div>
+                        <div class="pill-bits" id="pillBits"></div>
                     </div>
                     <div class="blob-ring" aria-hidden="true"></div>
                 </div>
@@ -392,6 +405,6 @@
 
     <script src="js/portrait-data.js"></script>
     <script src="js/i18n.js?v=1"></script>
-    <script src="js/script.js?v=3"></script>
+    <script src="js/script.js?v=4"></script>
 </body>
 </html>

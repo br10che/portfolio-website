@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 
@@ -33,6 +33,7 @@
         <div class="nav-inner">
             <a href="#home" class="nav-logo" aria-label="sanyan, back to top">sanyan<svg class="logo-capsule" viewBox="0 0 72 100" aria-hidden="true"><g transform="translate(36 66) rotate(-40) scale(1.18)"><rect class="cap-a" x="-28" y="-13" width="56" height="26" rx="13"/><path class="cap-b" d="M0 -13 H15 A13 13 0 0 1 15 13 H0 Z"/></g></svg></a>
             <ul class="nav-links" id="navLinks">
+                <li><a href="#pharmacies" class="nav-link" data-i18n="nav.pharmacies">for pharmacies</a></li>
                 <li><a href="#about"    class="nav-link" data-i18n="nav.about">about</a></li>
                 <li><a href="#journey"  class="nav-link" data-i18n="nav.journey">journey</a></li>
                 <li><a href="#skills"   class="nav-link" data-i18n="nav.skills">skills</a></li>
@@ -98,6 +99,74 @@
             <div class="hero-art" id="heroArt">
                 <canvas id="particles" aria-hidden="true"></canvas>
                 <p class="hero-art-hint mono" data-i18n="hero.hint">move your mouse here · click to scatter</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         FOR PHARMACIES — what I offer, in plain language
+    ====================================================== -->
+    <section id="pharmacies" class="section">
+        <div class="container">
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="ph.title">for pharmacies</span></h2>
+
+            <div class="ph-intro reveal">
+                <p class="ph-big" data-i18n="ph.big">Your products deserve more than a name and a price. <span class="accent">I get them ready to sell online.</span></p>
+                <p class="ph-lead" data-i18n="ph.intro">Opening an e-shop, or listing on Wolt or another delivery app? Most pharmacy systems only hold a short product name, a barcode and a price. Customers online need much more before they buy. I prepare it for you, product by product, so your shelves look as good online as they do in the store.</p>
+            </div>
+
+            <div class="services-grid">
+                    <div class="service-card reveal">
+                        <span class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 11h16M4 16h10"/></svg></span>
+                        <h3 data-i18n="ph.c1Title">Clear descriptions</h3>
+                        <p data-i18n="ph.c1Text">What the product is, who it's for and how it helps, written so a customer understands it in a few seconds.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <span class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg></span>
+                        <h3 data-i18n="ph.c2Title">The right photos</h3>
+                        <p data-i18n="ph.c2Text">Clean, matching photos for every product, checked against the barcode, so the picture always shows the right item, size and shade.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <span class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 14h9"/></svg></span>
+                        <h3 data-i18n="ph.c3Title">Ingredients &amp; how to use</h3>
+                        <p data-i18n="ph.c3Text">Full ingredient lists, active ingredients, how to use and warnings, taken from the brand's official information.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <span class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+                        <h3 data-i18n="ph.c4Title">An organised catalogue</h3>
+                        <p data-i18n="ph.c4Text">Correct names and sizes, no duplicates, clear categories and brands, so customers find what they're looking for.</p>
+                    </div>
+            </div>
+
+            <div class="ph-columns">
+                <div class="ph-box reveal">
+                    <h3 data-i18n="ph.whyTitle">what you get</h3>
+                    <ul class="ph-list">
+                        <li data-i18n="ph.w1">Customers trust a page that answers their questions, so they buy more easily.</li>
+                        <li data-i18n="ph.w2">Fewer phone calls asking "what is this for?"</li>
+                        <li data-i18n="ph.w3">A better chance of being found on Google.</li>
+                        <li data-i18n="ph.w4">Files ready for your e-shop, your system or a delivery app.</li>
+                    </ul>
+                </div>
+                <div class="ph-box reveal">
+                    <h3 data-i18n="ph.howTitle">how we work</h3>
+                    <ol class="ph-steps">
+                        <li><b data-i18n="ph.s1Title">You send me your product list</b><span data-i18n="ph.s1Text">An Excel export from your system is enough, even if the names are messy.</span></li>
+                        <li><b data-i18n="ph.s2Title">I prepare the products</b><span data-i18n="ph.s2Text">Descriptions, photos, ingredients and categories, checked one by one.</span></li>
+                        <li><b data-i18n="ph.s3Title">You get them ready to use</b><span data-i18n="ph.s3Text">Files ready for your e-shop, or I add them straight into your system.</span></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="ph-cta reveal">
+                <div>
+                    <p class="ph-proof" data-i18n="ph.proof">I already do this for pharmacies in Cyprus: thousands of products prepared for their e-shops and delivery apps.</p>
+                    <p class="ph-remote" data-i18n="ph.remote">I work remotely, so it doesn't matter where your pharmacy is. I speak Greek, English and Russian.</p>
+                </div>
+                <div class="ph-cta-buttons">
+                    <a href="#contact" class="btn btn-primary" data-i18n="ph.cta">let's talk about your pharmacy</a>
+                    <a href="https://wa.me/35797815022" target="_blank" rel="noopener" class="btn btn-outline">whatsapp</a>
+                </div>
             </div>
         </div>
     </section>
@@ -406,7 +475,7 @@
     </footer>
 
     <script src="js/portrait-data.js"></script>
-    <script src="js/i18n.js?v=2"></script>
+    <script src="js/i18n.js?v=3"></script>
     <script src="js/script.js?v=4"></script>
 </body>
 </html>

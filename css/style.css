@@ -1,0 +1,568 @@
+/* ============================================================
+   style.css — Viola Sanyan Portfolio
+   ============================================================ */
+
+/* ============================================================
+   DESIGN TOKENS
+   All colours live here. The dark theme is the default; the
+   [data-theme="light"] block below swaps them for light mode.
+   To try a different accent, change --accent and --accent-rgb.
+   ============================================================ */
+:root {
+    --bg:        #0c1322;   /* deep ink navy */
+    --surface:   #121b2e;   /* cards */
+    --surface-2: #18233a;   /* hovered cards */
+    --text:      #f5f5f5;
+    --text-2:    #eeeeee;   /* body text */
+    --text-3:    #939fb6;   /* small/secondary text: still readable, just quieter */
+    --border:    rgba(231, 235, 243, 0.08);
+
+    --accent:     #ffab8a;          /* warm apricot */
+    --accent-rgb: 255, 171, 138;    /* same colour as numbers, for transparent versions */
+    --accent-2:   #9fd8cb;          /* soft sea-green, used only in the particles + blob */
+
+    --font-head: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --max-width: 1080px;
+    --radius:    16px;
+    --ease:      cubic-bezier(.2, .7, .2, 1);
+}
+
+[data-theme="light"] {
+    --bg:        #faf6f1;   /* warm paper */
+    --surface:   #ffffff;
+    --surface-2: #f3ece4;
+    --text:      #1b2234;
+    --text-2:    #485269;
+    --text-3:    #6b7489;   /* darker than before so small text stays readable on the light bg */
+    --border:    rgba(27, 34, 52, 0.10);
+
+    --accent:     #d9643f;          /* darker apricot so it's readable on light bg */
+    --accent-rgb: 217, 100, 63;
+    --accent-2:   #2f8f7c;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    transition: background .4s ease, color .4s ease;
+    overflow-x: hidden;
+}
+
+/* All headings are lowercase — paragraph text is unaffected */
+h1, h2, h3 {
+    font-family: var(--font-head);
+    text-transform: lowercase;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+.accent { color: var(--accent); }
+.mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+::selection { background: rgba(var(--accent-rgb), .3); }
+
+/* Visible keyboard focus everywhere (good for accessibility) */
+:focus-visible { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 4px; }
+
+/* ============================================================
+   BUTTONS
+   No more big filled purple button: the main button is an
+   outline that fills with colour on hover.
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform .2s var(--ease), background .2s, color .2s, border-color .2s;
+}
+
+.btn-primary {
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), .06);
+}
+.btn-primary:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-2px);
+}
+
+.btn-outline { border: 1.5px solid var(--border); color: var(--text-2); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+.btn-link { color: var(--text-2); padding-left: 4px; padding-right: 4px; }
+.btn-link:hover { color: var(--accent); }
+
+/* ============================================================
+   NAVBAR
+   Fixed to the top. Gets a blurred background once you scroll
+   (the .scrolled class is added by script.js).
+   ============================================================ */
+.navbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    transition: background .3s, border-color .3s;
+    border-bottom: 1px solid transparent;
+}
+.navbar.scrolled {
+    background: rgba(12, 19, 34, .75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--border);
+}
+[data-theme="light"] .navbar.scrolled { background: rgba(250, 246, 241, .8); }
+
+.nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 22px; }
+
+.nav-links { display: flex; gap: 28px; }
+.nav-link { font-size: 15px; color: var(--text-2); transition: color .2s; }
+.nav-link:hover, .nav-link.active { color: var(--text); }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+
+.theme-toggle {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    transition: color .2s, border-color .2s, transform .4s var(--ease);
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); transform: rotate(20deg); }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* Hamburger — hidden on desktop */
+.nav-toggle { display: none; width: 38px; height: 38px; position: relative; }
+.nav-toggle span {
+    position: absolute; left: 9px; right: 9px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: transform .3s var(--ease), top .3s var(--ease);
+}
+.nav-toggle span:nth-child(1) { top: 14px; }
+.nav-toggle span:nth-child(2) { top: 22px; }
+.nav-toggle.open span:nth-child(1) { top: 18px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { top: 18px; transform: rotate(-45deg); }
+
+/* ============================================================
+   HERO
+   Two columns: text on the left, particle canvas on the right.
+   On small screens they stack (see the media queries at the end).
+   ============================================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 110px 0 60px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.hero-kicker { color: var(--accent); margin-bottom: 14px; letter-spacing: .02em; }
+
+.hero-name {
+    font-size: clamp(32px, 4.6vw, 50px);   /* clamp = grows with the screen, but stays between 32px and 50px (keeps the title on 2 lines) */
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.hero-desc { max-width: 520px; color: var(--text-2); font-size: 18px; margin-bottom: 18px; }
+
+.hero-roles { color: var(--text-3); margin-bottom: 36px; min-height: 1.7em; }
+.typewriter { color: var(--text); font-weight: 500; border-right: 2px solid var(--accent); padding-right: 3px; }
+
+.hero-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+
+.hero-art { position: relative; aspect-ratio: 1 / 1; width: 100%; }
+#particles { width: 100%; height: 100%; display: block; cursor: crosshair; }
+.hero-art-hint {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    text-align: center; color: var(--text-3); font-size: 11px;
+    opacity: .7;
+}
+
+/* ============================================================
+   SECTIONS & TITLES  —  "/ about me ————"
+   ============================================================ */
+.section { padding: 90px 0; }
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 700;
+    margin-bottom: 48px;
+}
+.section-title .slash { color: var(--accent); }
+/* The thin line after the title */
+.section-title::after {
+    content: "";
+    flex: 0 1 280px;
+    height: 1px;
+    background: var(--border);
+    margin-left: 10px;
+}
+
+strong { color: var(--text); font-weight: 600; }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+.about-text p { color: var(--text-2); margin-bottom: 18px; }
+
+.about-facts { margin-top: 28px; display: grid; gap: 6px; color: var(--text); }
+.about-facts span { display: inline-block; min-width: 110px; color: var(--text-3); }
+.about-facts span::before { content: "▹ "; color: var(--accent); }
+.about-facts b { font-weight: 500; }
+
+/* ---------- The blob photo ----------
+   border-radius with 8 values (x / y) makes an organic shape.
+   The "morph" animation slowly moves between a few shapes.
+   On hover the shape changes faster, the photo tilts,
+   and the second photo (viola-2.jpg) fades in if it exists. */
+.about-photo { position: relative; width: min(340px, 100%); aspect-ratio: 1 / 1; justify-self: center; }
+
+.blob {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    animation: morph 12s ease-in-out infinite;
+    transition: transform .6s var(--ease);
+    z-index: 1;
+}
+.about-photo:hover .blob {
+    animation-duration: 3s;
+    transform: rotate(-6deg) scale(1.04);
+}
+
+@keyframes morph {
+    0%, 100% { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; }
+    33%      { border-radius: 63% 37% 39% 61% / 55% 62% 38% 45%; }
+    66%      { border-radius: 36% 64% 52% 48% / 62% 36% 64% 38%; }
+}
+
+.blob-placeholder {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--font-head); font-weight: 800; font-size: 96px;
+    color: var(--bg);
+}
+.blob-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: opacity .5s ease, filter .5s ease, transform .6s var(--ease);
+}
+.blob-img-main { filter: grayscale(.35) contrast(1.05); }
+.blob-img-hover { opacity: 0; }
+.about-photo:hover .blob-img-main  { filter: none; transform: scale(1.06); }
+.about-photo:hover .blob-img-hover { opacity: 1; }
+
+/* Outline ring behind the blob that moves the other way on hover */
+.blob-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--accent);
+    border-radius: 58% 42% 37% 63% / 59% 56% 44% 41%;
+    transform: translate(14px, 14px);
+    animation: morph 12s ease-in-out infinite reverse;
+    transition: transform .6s var(--ease);
+}
+.about-photo:hover .blob-ring { transform: translate(-10px, -10px) rotate(8deg); }
+
+/* ============================================================
+   JOURNEY — vertical list of milestones on the left (tabs),
+   details on the right.
+   ============================================================ */
+.journey { display: grid; grid-template-columns: 220px 1fr; gap: 48px; min-height: 230px; }
+
+.journey-tabs { position: relative; display: flex; flex-direction: column; }
+/* The vertical line that connects the dots */
+.journey-tabs::before {
+    content: "";
+    position: absolute; left: 7px; top: 22px; bottom: 22px;
+    width: 2px; background: var(--border);
+}
+
+.journey-tab {
+    position: relative;
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 0;
+    text-align: left;
+    color: var(--text-3);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 18px;
+    transition: color .2s;
+}
+.journey-tab:hover { color: var(--text-2); }
+.journey-tab.active { color: var(--text); }
+
+.journey-dot {
+    position: relative; z-index: 1;
+    width: 16px; height: 16px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid var(--text-3);
+    background: var(--bg);
+    transition: border-color .2s, background .2s, transform .3s var(--ease);
+}
+.journey-tab.active .journey-dot { border-color: var(--accent); background: var(--accent); transform: scale(1.15); }
+
+/* The "what's next" dot has a soft ripple */
+.journey-dot.pulse::after {
+    content: "";
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    animation: ripple 2s ease-out infinite;
+}
+@keyframes ripple { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.4); opacity: 0; } }
+
+.journey-panel { display: none; }
+.journey-panel.active { display: block; animation: slideIn .4s var(--ease); }
+@keyframes slideIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+
+.journey-panel h3 { font-size: 24px; margin-bottom: 18px; }
+.journey-panel h3 .accent { font-weight: 500; }
+.journey-panel li { position: relative; padding-left: 24px; margin-bottom: 12px; color: var(--text-2); }
+.journey-panel li::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+
+/* ============================================================
+   SKILLS
+   Two columns on desktop, one on phones (see media queries).
+   ============================================================ */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: transform .3s var(--ease), border-color .3s;
+}
+.skill-card:hover { transform: translateY(-4px); border-color: rgba(var(--accent-rgb), .4); }
+.skill-card-title { font-size: 19px; margin-bottom: 16px; display: flex; gap: 10px; align-items: baseline; }
+
+/* Skills inside a card: a neat two-column list (every row lines up),
+   with the same ▹ bullet as the About facts and Journey lists */
+.skill-tags {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 20px;
+}
+.skill-tags .tag {
+    position: relative;
+    padding: 0 0 0 20px;
+    border: 0;
+    border-radius: 0;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.skill-tags .tag::before { content: "▹"; position: absolute; left: 0; color: var(--accent); }
+.skill-tags .tag:hover { background: none; }
+.tag {
+    font-size: 13px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    transition: color .2s, border-color .2s, background .2s;
+}
+.tag:hover { color: var(--accent); border-color: var(--accent); background: rgba(var(--accent-rgb), .07); }
+
+/* ============================================================
+   PROJECTS
+   The featured card spans the full width on desktop.
+   A soft light follows the mouse inside each card: script.js
+   sets --mx / --my to the mouse position.
+   ============================================================ */
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+.project-card {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    overflow: hidden;
+    transition: transform .3s var(--ease), border-color .3s;
+}
+.project-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(380px circle at var(--mx) var(--my), rgba(var(--accent-rgb), .12), transparent 60%);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+}
+.project-card:hover { transform: translateY(-6px); border-color: rgba(var(--accent-rgb), .35); }
+.project-card:hover::before { opacity: 1; }
+
+.project-featured { grid-column: 1 / -1; padding: 36px; }
+.project-featured .project-title { font-size: 28px; }
+.project-featured .project-desc { max-width: 720px; }
+
+.project-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.folder { color: var(--accent); }
+.project-links a { color: var(--text-2); transition: color .2s; }
+.project-links a:hover { color: var(--accent); }
+
+.project-label { color: var(--accent); font-size: 12px; margin-bottom: 8px; }
+.project-top .project-label { margin-bottom: 0; color: var(--text-3); }
+
+.project-title { font-size: 22px; margin-bottom: 12px; transition: color .2s; }
+.project-card:hover .project-title { color: var(--accent); }
+.project-desc { color: var(--text-2); font-size: 16px; margin-bottom: 22px; flex-grow: 1; }
+
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--text-3); font-size: 12.5px; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-box { max-width: 720px; }
+.contact-big {
+    font-family: var(--font-head);
+    font-size: clamp(26px, 3.6vw, 38px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 28px;
+}
+
+.copy-email {
+    display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 16px 22px;
+    margin-bottom: 26px;
+    border: 1.5px dashed var(--border);
+    border-radius: 12px;
+    font-size: 18px;
+    transition: border-color .2s, color .2s;
+}
+.copy-email:hover { border-color: var(--accent); color: var(--accent); }
+.copy-hint { font-size: 12px; color: var(--text-3); text-transform: lowercase; }
+.copy-email.copied .copy-hint { color: var(--accent-2); }
+
+.contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { padding: 32px 0 40px; border-top: 1px solid var(--border); }
+.footer-inner { display: flex; justify-content: space-between; gap: 12px; color: var(--text-3); font-size: 12px; }
+.footer-inner a { transition: color .2s; }
+.footer-inner a:hover { color: var(--accent); }
+
+/* ============================================================
+   REVEAL ON SCROLL
+   script.js adds .visible when an element enters the screen.
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* Tablet: stack the hero and about columns */
+@media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { max-width: 420px; margin: 0 auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-photo { width: min(280px, 80%); }
+}
+
+/* Phone: hamburger menu, single-column everything */
+@media (max-width: 720px) {
+    body { font-size: 16px; }
+    .container, .nav-inner { padding: 0 16px; }
+
+    .nav-toggle { display: block; }
+    .nav-links {
+        position: fixed;
+        top: 68px; left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 16px 20px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%);
+        transition: transform .35s var(--ease);
+        z-index: -1;
+    }
+    .nav-links.open { transform: none; }
+    .nav-link { display: block; padding: 12px 0; font-size: 17px; }
+
+    .hero { padding-top: 100px; }
+    .section { padding: 80px 0; }
+    .section-title::after { display: none; }
+
+    .journey { grid-template-columns: 1fr; gap: 24px; }
+    /* Milestones become a horizontal scrolling row on phones */
+    .journey-tabs { flex-direction: row; overflow-x: auto; gap: 18px; padding-bottom: 4px; }
+    .journey-tabs::before { display: none; }
+    .journey-tab { white-space: nowrap; font-size: 16px; gap: 8px; }
+
+    .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+    .project-featured { padding: 28px; }
+    .copy-email { font-size: 15px; }
+    .footer-inner { flex-direction: column; }
+}
+
+/* Respect people who turned off animations in their system settings */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; }
+}

@@ -21,8 +21,9 @@
     --accent-rgb: 255, 171, 138;    /* same colour as numbers, for transparent versions */
     --accent-2:   #9fd8cb;          /* soft sea-green, used only in the particles + blob */
 
-    --font-head: "Bricolage Grotesque", system-ui, sans-serif;
-    --font-body: "DM Sans", system-ui, sans-serif;
+    /* Manrope fills in Greek and Cyrillic letters, which the first fonts don't have */
+    --font-head: "Bricolage Grotesque", "Manrope", system-ui, sans-serif;
+    --font-body: "DM Sans", "Manrope", system-ui, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
     --max-width: 1080px;
@@ -166,6 +167,39 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .theme-toggle .icon-sun { display: none; }
 [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
 [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* Language switch: a small button with a dropdown under it */
+.lang-switch { position: relative; }
+.lang-toggle {
+    height: 38px; padding: 0 10px;
+    display: flex; align-items: center; gap: 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-size: 13px;
+    transition: color .2s, border-color .2s;
+}
+.lang-toggle:hover, .lang-switch.open .lang-toggle { color: var(--accent); border-color: var(--accent); }
+
+.lang-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    min-width: 150px; padding: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+    /* hidden until .open is added by js/i18n.js */
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity .2s, transform .2s var(--ease), visibility .2s;
+}
+.lang-switch.open .lang-menu { opacity: 1; visibility: visible; transform: none; }
+.lang-option {
+    width: 100%; text-align: left;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 15px; color: var(--text-2);
+}
+.lang-option:hover { background: var(--surface-2); color: var(--text); }
+.lang-option.active { color: var(--accent); }
 
 /* Hamburger — hidden on desktop */
 .nav-toggle { display: none; width: 38px; height: 38px; position: relative; }

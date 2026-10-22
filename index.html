@@ -7,8 +7,8 @@
     <title>Viola Sanyan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -19,19 +19,31 @@
         <div class="nav-inner">
             <a href="#home" class="nav-logo">viola<span class="accent">.</span></a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about"    class="nav-link">about</a></li>
-                <li><a href="#journey"  class="nav-link">journey</a></li>
-                <li><a href="#skills"   class="nav-link">skills</a></li>
-                <li><a href="#projects" class="nav-link">projects</a></li>
-                <li><a href="#contact"  class="nav-link">contact</a></li>
+                <li><a href="#about"    class="nav-link" data-i18n="nav.about">about</a></li>
+                <li><a href="#journey"  class="nav-link" data-i18n="nav.journey">journey</a></li>
+                <li><a href="#skills"   class="nav-link" data-i18n="nav.skills">skills</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav.projects">projects</a></li>
+                <li><a href="#contact"  class="nav-link" data-i18n="nav.contact">contact</a></li>
             </ul>
             <div class="nav-actions">
+                <!-- Language switch: the menu is filled in by js/i18n.js -->
+                <div class="lang-switch" id="langSwitch">
+                    <button class="lang-toggle mono" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-label="Choose language" data-i18n-aria="aria.lang">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span id="langCurrent">EN</span>
+                    </button>
+                    <ul class="lang-menu" id="langMenu">
+                        <li><button class="lang-option" data-lang="en" lang="en">English</button></li>
+                        <li><button class="lang-option" data-lang="el" lang="el">Ελληνικά</button></li>
+                        <li><button class="lang-option" data-lang="ru" lang="ru">Русский</button></li>
+                    </ul>
+                </div>
                 <!-- Light / dark switch -->
-                <button class="theme-toggle" id="themeToggle" aria-label="Switch light or dark theme">
+                <button class="theme-toggle" id="themeToggle" aria-label="Switch light or dark theme" data-i18n-aria="aria.theme">
                     <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                     <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
                 </button>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" data-i18n-aria="aria.menu">
                     <span></span>
                     <span></span>
                 </button>
@@ -46,32 +58,32 @@
         <div class="container hero-grid">
 
             <div class="hero-content">
-                <h1 class="hero-name">better product data<br> <span class="accent">for pharmacy e&#8209;shops</span></h1>
+                <h1 class="hero-name" data-i18n="hero.title">better product data<br> <span class="accent">for pharmacy e&#8209;shops</span></h1>
 
-                <p class="hero-desc">
+                <p class="hero-desc" data-i18n="hero.desc">
                     Computer Science student. I've worked in pharmacy and e-commerce
                     alongside my studies, so I like building things that make real-world
                     data easier to work with.
                 </p>
 
                 <p class="hero-roles">
-                    <span class="mono">focused on →</span>
+                    <span class="mono" data-i18n="hero.focused">focused on →</span>
                     <span class="typewriter" id="typewriter"></span>
                 </p>
 
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        say hi
+                        <span data-i18n="hero.sayHi">say hi</span>
                     </a>
-                    <a href="#projects" class="btn btn-link">see my projects <span aria-hidden="true">↓</span></a>
+                    <a href="#projects" class="btn btn-link"><span data-i18n="hero.seeProjects">see my projects</span> <span aria-hidden="true">↓</span></a>
                 </div>
             </div>
 
             <!-- Particle canvas: move the mouse over it, click to scatter -->
             <div class="hero-art" id="heroArt">
                 <canvas id="particles" aria-hidden="true"></canvas>
-                <p class="hero-art-hint mono">move your mouse here · click to scatter</p>
+                <p class="hero-art-hint mono" data-i18n="hero.hint">move your mouse here · click to scatter</p>
             </div>
         </div>
     </section>
@@ -81,23 +93,23 @@
     ====================================================== -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title"><span class="slash">/</span> about me</h2>
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="about.title">about me</span></h2>
 
             <div class="about-grid">
                 <div class="about-text reveal">
-                    <p>
+                    <p data-i18n="about.p1">
                         I'm a Computer Science student based in <strong>Limassol, Cyprus</strong>.
                         My route into tech is a bit different: alongside my studies I've worked in
                         <strong>pharmacy</strong> and <strong>e&#8209;commerce operations</strong>, so I know how
                         a business actually runs day to day, not just how to write code for it.
                     </p>
-                    <p>
+                    <p data-i18n="about.p2">
                         A lot of my work is product data: cleaning catalogs, matching barcodes,
                         organising thousands of SKUs in spreadsheets and an ERP system. It taught me
                         to care about accuracy, and about the small detail that quietly breaks
                         everything if nobody checks it.
                     </p>
-                    <p>
+                    <p data-i18n="about.p3">
                         I also hold a diploma as a <strong>Computer and Network Technician</strong>,
                         and I'm building on it with data work and cybersecurity.
                         I speak <strong>English, Russian and Greek</strong>, which helps a lot in any role
@@ -105,8 +117,8 @@
                     </p>
 
                     <ul class="about-facts mono">
-                        <li><span>based in</span> Limassol, Cyprus</li>
-                        <li><span>speaks</span> EN · RU · GR</li>
+                        <li><span data-i18n="about.basedIn">based in</span> <b data-i18n="about.city">Limassol, Cyprus</b></li>
+                        <li><span data-i18n="about.speaks">speaks</span> EN · RU · GR</li>
                     </ul>
                 </div>
 
@@ -129,57 +141,57 @@
     ====================================================== -->
     <section id="journey" class="section">
         <div class="container">
-            <h2 class="section-title"><span class="slash">/</span> journey</h2>
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="journey.title">journey</span></h2>
 
             <div class="journey reveal">
                 <!-- The milestone list (works like tabs) -->
-                <div class="journey-tabs" role="tablist" aria-label="Career milestones">
+                <div class="journey-tabs" role="tablist" aria-label="Career milestones" data-i18n-aria="aria.milestones">
                     <button class="journey-tab active" role="tab" aria-selected="true" data-step="0">
-                        <span class="journey-dot"></span>pharmacy
+                        <span class="journey-dot"></span><span data-i18n="journey.tab1">pharmacy</span>
                     </button>
                     <button class="journey-tab" role="tab" aria-selected="false" data-step="1">
-                        <span class="journey-dot"></span>e-commerce
+                        <span class="journey-dot"></span><span data-i18n="journey.tab2">e-commerce</span>
                     </button>
                     <button class="journey-tab" role="tab" aria-selected="false" data-step="2">
-                        <span class="journey-dot"></span>cs studies
+                        <span class="journey-dot"></span><span data-i18n="journey.tab3">cs studies</span>
                     </button>
                     <button class="journey-tab" role="tab" aria-selected="false" data-step="3">
-                        <span class="journey-dot pulse"></span>what's next
+                        <span class="journey-dot pulse"></span><span data-i18n="journey.tab4">what's next</span>
                     </button>
                 </div>
 
                 <!-- One panel per milestone -->
                 <div class="journey-panels">
                     <div class="journey-panel active" role="tabpanel">
-                        <h3>pharmacy <span class="accent">@ Limassol</span></h3>
+                        <h3 data-i18n="journey.h1">pharmacy <span class="accent">@ Limassol</span></h3>
                         <ul>
-                            <li>Worked with customers every day, in three languages.</li>
-                            <li>Learned how products, stock and suppliers really move through a business.</li>
-                            <li>Got used to work where a small mistake actually matters.</li>
+                            <li data-i18n="journey.p1.1">Worked with customers every day, in three languages.</li>
+                            <li data-i18n="journey.p1.2">Learned how products, stock and suppliers really move through a business.</li>
+                            <li data-i18n="journey.p1.3">Got used to work where a small mistake actually matters.</li>
                         </ul>
                     </div>
                     <div class="journey-panel" role="tabpanel">
-                        <h3>e-commerce <span class="accent">@ online pharmacy stores</span></h3>
+                        <h3 data-i18n="journey.h2">e-commerce <span class="accent">@ online pharmacy stores</span></h3>
                         <ul>
-                            <li>Manage product catalogs with thousands of SKUs in Excel and an ERP system.</li>
-                            <li>Match barcodes, clean product data, and keep stock and categories correct.</li>
-                            <li>Prepare listings for delivery platforms and the stores' websites.</li>
+                            <li data-i18n="journey.p2.1">Manage product catalogs with thousands of SKUs in Excel and an ERP system.</li>
+                            <li data-i18n="journey.p2.2">Match barcodes, clean product data, and keep stock and categories correct.</li>
+                            <li data-i18n="journey.p2.3">Prepare listings for delivery platforms and the stores' websites.</li>
                         </ul>
                     </div>
                     <div class="journey-panel" role="tabpanel">
-                        <h3>computer science <span class="accent">@ university</span></h3>
+                        <h3 data-i18n="journey.h3">computer science <span class="accent">@ university</span></h3>
                         <ul>
-                            <li>Diploma as a Computer and Network Technician.</li>
-                            <li>Programming in Python, C++ and JavaScript, plus databases and networking.</li>
-                            <li>Group project: UniVerse, a smart campus system built with Flask and MySQL.</li>
-                            <li>Thesis on using AI to enrich product catalogs for Cypriot pharmacies.</li>
+                            <li data-i18n="journey.p3.1">Diploma as a Computer and Network Technician.</li>
+                            <li data-i18n="journey.p3.2">Programming in Python, C++ and JavaScript, plus databases and networking.</li>
+                            <li data-i18n="journey.p3.3">Group project: UniVerse, a smart campus system built with Flask and MySQL.</li>
+                            <li data-i18n="journey.p3.4">Thesis on using AI to enrich product catalogs for Cypriot pharmacies.</li>
                         </ul>
                     </div>
                     <div class="journey-panel" role="tabpanel">
-                        <h3>what's next <span class="accent">@ ?</span></h3>
+                        <h3 data-i18n="journey.h4">what's next <span class="accent">@ ?</span></h3>
                         <ul>
-                            <li>Looking for a junior role in data, IT support or e-commerce systems.</li>
-                            <li>Currently learning cybersecurity, and I'd like to build my career in it.</li>
+                            <li data-i18n="journey.p4.1">Looking for a junior role in data, IT support or e-commerce systems.</li>
+                            <li data-i18n="journey.p4.2">Currently learning cybersecurity, and I'd like to build my career in it.</li>
                         </ul>
                     </div>
                 </div>
@@ -192,41 +204,41 @@
     ====================================================== -->
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title"><span class="slash">/</span> skills</h2>
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="skills.title">skills</span></h2>
 
             <div class="skills-grid">
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">$_</span> systems</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">$_</span> <span data-i18n="skills.systems">systems</span></h3>
                     <div class="skill-tags">
                         <span class="tag">Windows</span>
                         <span class="tag">Linux</span>
                         <span class="tag">Windows Server</span>
                         <span class="tag">Active Directory</span>
-                        <span class="tag">User accounts</span>
-                        <span class="tag">Backups</span>
-                        <span class="tag">Troubleshooting</span>
+                        <span class="tag" data-i18n="tag.accounts">User accounts</span>
+                        <span class="tag" data-i18n="tag.backups">Backups</span>
+                        <span class="tag" data-i18n="tag.troubleshooting">Troubleshooting</span>
                     </div>
                 </div>
 
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">&lt;-&gt;</span> networking</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">&lt;-&gt;</span> <span data-i18n="skills.networking">networking</span></h3>
                     <div class="skill-tags">
                         <span class="tag">TCP/IP</span>
                         <span class="tag">LAN / WAN</span>
                         <span class="tag">DNS / DHCP</span>
                         <span class="tag">NAT / VPN</span>
-                        <span class="tag">VLANs &amp; subnetting</span>
+                        <span class="tag" data-i18n="tag.vlans">VLANs &amp; subnetting</span>
                         <span class="tag">Routing / switching</span>
                         <span class="tag">Cisco Packet Tracer</span>
                     </div>
                 </div>
 
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">[#]</span> hardware &amp; remote</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">[#]</span> <span data-i18n="skills.hardware">hardware &amp; remote</span></h3>
                     <div class="skill-tags">
-                        <span class="tag">PC building</span>
+                        <span class="tag" data-i18n="tag.pcBuilding">PC building</span>
                         <span class="tag">BIOS / UEFI</span>
-                        <span class="tag">Hardware basics</span>
+                        <span class="tag" data-i18n="tag.hwBasics">Hardware basics</span>
                         <span class="tag">VirtualBox / VMware</span>
                         <span class="tag">SSH / RDP</span>
                         <span class="tag">TeamViewer / AnyDesk</span>
@@ -234,7 +246,7 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">&lt;/&gt;</span> programming</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">&lt;/&gt;</span> <span data-i18n="skills.programming">programming</span></h3>
                     <div class="skill-tags">
                         <span class="tag">Python</span>
                         <span class="tag">JavaScript</span>
@@ -246,26 +258,26 @@
                 </div>
 
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">∑</span> data</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">∑</span> <span data-i18n="skills.data">data</span></h3>
                     <div class="skill-tags">
-                        <span class="tag">Excel (advanced)</span>
+                        <span class="tag" data-i18n="tag.excel">Excel (advanced)</span>
                         <span class="tag">SQL</span>
                         <span class="tag">Google Sheets</span>
-                        <span class="tag">Product datasets</span>
-                        <span class="tag">Data cleaning</span>
-                        <span class="tag">Bulk automation</span>
+                        <span class="tag" data-i18n="tag.datasets">Product datasets</span>
+                        <span class="tag" data-i18n="tag.cleaning">Data cleaning</span>
+                        <span class="tag" data-i18n="tag.bulk">Bulk automation</span>
                     </div>
                 </div>
 
                 <div class="skill-card reveal">
-                    <h3 class="skill-card-title"><span class="mono accent">:)</span> tools &amp; people</h3>
+                    <h3 class="skill-card-title"><span class="mono accent">:)</span> <span data-i18n="skills.tools">tools &amp; people</span></h3>
                     <div class="skill-tags">
                         <span class="tag">RichReach ERP</span>
                         <span class="tag">Microsoft 365</span>
                         <span class="tag">Google Workspace</span>
                         <span class="tag">Notion</span>
-                        <span class="tag">EN · RU · GR support</span>
-                        <span class="tag">Problem solving</span>
+                        <span class="tag" data-i18n="tag.support">EN · RU · GR support</span>
+                        <span class="tag" data-i18n="tag.problems">Problem solving</span>
                     </div>
                 </div>
             </div>
@@ -277,7 +289,7 @@
     ====================================================== -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title"><span class="slash">/</span> projects</h2>
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="projects.title">projects</span></h2>
 
             <div class="projects-grid">
 
@@ -285,18 +297,18 @@
                     <div class="project-top">
                         <svg class="folder" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                         <div class="project-links">
-                            <a href="https://github.com/br10che/portfolio-website" target="_blank" rel="noopener" aria-label="Source code on GitHub">
+                            <a href="https://github.com/br10che/portfolio-website" target="_blank" rel="noopener" aria-label="Source code on GitHub" data-i18n-aria="aria.source">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.8-.26.8-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.87.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
                             </a>
                         </div>
                     </div>
-                    <span class="project-label mono">featured · this website</span>
-                    <h3 class="project-title">personal portfolio, built from scratch</h3>
-                    <p class="project-desc">
+                    <span class="project-label mono" data-i18n="projects.featuredLabel">featured · this website</span>
+                    <h3 class="project-title" data-i18n="projects.p1Title">personal portfolio, built from scratch</h3>
+                    <p class="project-desc" data-i18n="projects.p1Desc">
                         The site you're looking at. Hand-written HTML, CSS and JavaScript, no frameworks.
                         The portrait at the top is a small canvas script I wrote myself: it draws me out
                         of 0s and 1s, follows your mouse and scatters when you click. There's a light and
-                        dark theme, and the layout works on any screen size.
+                        dark theme, three languages, and the layout works on any screen size.
                     </p>
                     <ul class="project-tags mono">
                         <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas</li><li>Responsive design</li>
@@ -306,10 +318,10 @@
                 <article class="project-card reveal">
                     <div class="project-top">
                         <svg class="folder" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <span class="project-label mono">group project</span>
+                        <span class="project-label mono" data-i18n="projects.groupLabel">group project</span>
                     </div>
-                    <h3 class="project-title">universe: smart campus system</h3>
-                    <p class="project-desc">
+                    <h3 class="project-title" data-i18n="projects.p2Title">universe: smart campus system</h3>
+                    <p class="project-desc" data-i18n="projects.p2Desc">
                         A web app for running a university campus: room booking, user roles,
                         attendance tracking and student/staff features. Flask backend, MySQL
                         database, role-based access, and an NFC attendance concept.
@@ -322,10 +334,10 @@
                 <article class="project-card reveal">
                     <div class="project-top">
                         <svg class="folder" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        <span class="project-label mono">student project</span>
+                        <span class="project-label mono" data-i18n="projects.studentLabel">student project</span>
                     </div>
                     <h3 class="project-title">libbookbloom</h3>
-                    <p class="project-desc">
+                    <p class="project-desc" data-i18n="projects.p3Desc">
                         A front-end JavaScript app for browsing and working with book and
                         library data through a simple, clean interface.
                     </p>
@@ -343,10 +355,10 @@
     ====================================================== -->
     <section id="contact" class="section contact">
         <div class="container">
-            <h2 class="section-title"><span class="slash">/</span> say hi</h2>
+            <h2 class="section-title"><span class="slash">/</span> <span data-i18n="contact.title">say hi</span></h2>
 
             <div class="contact-box reveal">
-                <p class="contact-big">
+                <p class="contact-big" data-i18n="contact.big">
                     Have a role, a project, or just a question?
                     <span class="accent">My inbox is open.</span>
                 </p>
@@ -354,14 +366,14 @@
                 <!-- Click to copy the email address -->
                 <button class="copy-email" id="copyEmail" data-email="contact@violasanyan.com">
                     <span class="mono" id="copyEmailText">contact@violasanyan.com</span>
-                    <span class="copy-hint" id="copyHint">click to copy</span>
+                    <span class="copy-hint" id="copyHint" data-i18n="contact.copyHint">click to copy</span>
                 </button>
 
                 <div class="contact-links">
-                    <a href="mailto:contact@violasanyan.com" class="btn btn-primary">send an email</a>
+                    <a href="mailto:contact@violasanyan.com" class="btn btn-primary" data-i18n="contact.send">send an email</a>
                     <a href="https://github.com/br10che" target="_blank" rel="noopener" class="btn btn-outline">github</a>
                     <a href="https://linkedin.com/in/violasanyan" target="_blank" rel="noopener" class="btn btn-outline">linkedin</a>
-                    <a href="assets/cv/viola-sanyan-cv.pdf" class="btn btn-outline" download>download cv</a>
+                    <a href="assets/cv/viola-sanyan-cv.pdf" class="btn btn-outline" download data-i18n="contact.cv">download cv</a>
                 </div>
             </div>
         </div>
@@ -369,13 +381,14 @@
 
     <footer class="footer">
         <div class="container footer-inner mono">
-            <p>designed &amp; built from scratch by viola</p>
+            <p data-i18n="footer.built">designed &amp; built from scratch by viola</p>
             <p><a href="mailto:contact@violasanyan.com">contact@violasanyan.com</a></p>
-            <p>limassol, cyprus</p>
+            <p data-i18n="footer.city">limassol, cyprus</p>
         </div>
     </footer>
 
     <script src="js/portrait-data.js"></script>
-    <script src="js/script.js?v=2"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=3"></script>
 </body>
 </html>

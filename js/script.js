@@ -30,13 +30,8 @@ themeToggle.addEventListener('click', () => {
    2. TYPEWRITER
    Cycles through the things Viola works on (after "focused on →").
    ============================================================ */
-const roles = [
-    'data cleanup',
-    'product enrichment',
-    'linux',
-    'IT support',
-    'cybersecurity',
-];
+// The words come from js/i18n.js, so they follow the chosen language
+const getRoles = () => window.i18n.t('hero.roles');
 
 let roleIndex  = 0;     // which word we're on
 let charIndex  = 0;     // how many characters are typed so far
@@ -45,6 +40,8 @@ let isDeleting = false;
 const typewriterEl = document.getElementById('typewriter');
 
 function runTypewriter() {
+    const roles = getRoles();
+    roleIndex %= roles.length;
     const currentRole = roles[roleIndex];
 
     // Add or remove one character
@@ -52,7 +49,7 @@ function runTypewriter() {
     typewriterEl.textContent = currentRole.slice(0, charIndex);
 
     // Finished typing: pause, then start deleting
-    if (!isDeleting && charIndex === currentRole.length) {
+    if (!isDeleting && charIndex >= currentRole.length) {
         isDeleting = true;
         setTimeout(runTypewriter, 2000);
         return;
@@ -92,10 +89,6 @@ const ctx     = canvas.getContext('2d');
 const heroArt = document.getElementById('heroArt');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Phones and tablets have no mouse, so give them a hint that fits a finger
-if (window.matchMedia('(hover: none)').matches) {
-    heroArt.querySelector('.hero-art-hint').textContent = 'tap to scatter';
-}
 
 let size      = 0;          // canvas width/height in CSS pixels (it's square)
 let particles = [];         // { x, y, vx, vy, tx, ty, group, r, bit }
@@ -570,14 +563,14 @@ const copyHint = document.getElementById('copyHint');
 copyBtn.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(copyBtn.dataset.email);
-        copyHint.textContent = 'copied ✓';
+        copyHint.textContent = window.i18n.t('contact.copied');
         copyBtn.classList.add('copied');
     } catch (e) {
         // Clipboard can be blocked (e.g. on http://), so fall back to opening the mail app
         window.location.href = `mailto:${copyBtn.dataset.email}`;
     }
     setTimeout(() => {
-        copyHint.textContent = 'click to copy';
+        copyHint.textContent = window.i18n.t('contact.copyHint');
         copyBtn.classList.remove('copied');
     }, 2000);
 });

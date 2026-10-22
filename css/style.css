@@ -157,6 +157,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-links { display: flex; gap: 28px; }
 .nav-link { font-size: 15px; color: var(--text-2); transition: color .2s; }
 .nav-link:hover, .nav-link.active { color: var(--text); }
+/* "for pharmacies" stands out in the menu (peach accent) */
+.nav-link-highlight, .nav-link-highlight:hover, .nav-link-highlight.active { color: var(--accent); font-weight: 600; }
 
 .nav-actions { display: flex; align-items: center; gap: 8px; }
 

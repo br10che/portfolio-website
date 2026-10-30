@@ -569,7 +569,7 @@ strong { color: var(--text); font-weight: 600; }
    sets --mx / --my to the mouse position.
    ============================================================ */
 /* Three compact cards side by side (two on tablets, one on phones) */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
 .project-card {
     --mx: 50%;
